@@ -42,7 +42,7 @@ class Solution {
         q.clear();
         q.offer(init);
         visited.add(init);
-        int time = 0;
+        int time = -1;
         while (!q.isEmpty()) {
             for (int i = q.size(); i > 0; i--) {
                 TreeNode curr = q.poll();
@@ -63,6 +63,6 @@ class Solution {
             time++;
         }
 
-        return time-1;
+        return time;
     }
 }
