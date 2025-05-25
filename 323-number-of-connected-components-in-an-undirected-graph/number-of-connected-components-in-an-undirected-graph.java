@@ -1,50 +1,50 @@
 class Solution {
     class UnionFind {
-        int components = 0;
         int[] parent;
         int[] rank;
-        
-        public UnionFind(int size) {
-            components = size;
-            parent = new int[size];
-            for (int i = 0; i < size; i++) {
+
+        public UnionFind(int n) {
+            parent = new int[n];
+            for (int i = 0; i < n; i++) {
                 parent[i] = i;
             }
-            rank = new int[size];
+            rank = new int[n];
         }
-        
-        public int find(int i) {
-            if (parent[i] != i) {
-                parent[i] = find(parent[i]);
+
+        public int find(int x) {
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]);
             }
-            return parent[i];
+            return parent[x];
         }
-        
+
         public void union(int x, int y) {
             int xset = find(x);
             int yset = find(y);
-            if (xset == yset) return;
-            else if (rank[xset] < rank[yset]) parent[xset] = yset;
-            else if (rank[xset] > rank[yset]) parent[yset] = xset;
-            else {
-                parent[yset] = xset;
-                rank[xset]++;
+
+            if (xset == yset) {
+                return;
             }
-            components--;
-        }
-        
-        public int totalComponents() {
-            return components;
+            if (rank[xset] < rank[yset]) {
+                parent[yset] = xset;
+            } else if (rank[xset] > rank[yset]) {
+                parent[yset] = xset;
+            } else {
+                parent[yset] = xset;
+                xset++;
+            }
         }
     }
-    
+
     public int countComponents(int n, int[][] edges) {
-        UnionFind dsu = new UnionFind(n);
-        
-        for (int[] edge: edges) {
-            dsu.union(edge[0], edge[1]);
+        UnionFind uf = new UnionFind(n);
+        for (int[] edge : edges) {
+            uf.union(edge[0], edge[1]);
         }
-        
-        return dsu.totalComponents();
+        HashSet<Integer> hs = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            hs.add(uf.find(i));
+        }
+        return hs.size();
     }
 }
