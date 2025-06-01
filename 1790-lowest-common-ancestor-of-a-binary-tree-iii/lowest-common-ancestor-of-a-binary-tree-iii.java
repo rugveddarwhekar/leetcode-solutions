@@ -13,17 +13,15 @@ class Solution {
         Node a = p;
         Node b = q;
 
-        while (a != b) {
-            if (a != null) {
-                a = a.parent;
-            } else {
-                a = q;
-            }
-            if (b != null) {
-                b = b.parent;
-            } else {
-                b = p;
-            }
+        Set<Node> hs = new HashSet<>();
+        while (b != null) {
+            hs.add(b);
+            b = b.parent;
+        }
+
+        while (a != null) {
+            if (hs.contains(a)) return a;
+            a = a.parent;
         }
 
         return a;
