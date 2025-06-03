@@ -14,12 +14,12 @@
  * }
  */
 class Solution {
-
-    private class Node {
+    
+    class Node {
         TreeNode node;
         int hd;
 
-        private Node(TreeNode node, int hd) {
+        public Node(TreeNode node, int hd) {
             this.node = node;
             this.hd = hd;
         }
@@ -31,24 +31,24 @@ class Solution {
 
         Queue<Node> q = new LinkedList<>();
         q.offer(new Node(root, 0));
-        Map<Integer, List<Integer>> map = new HashMap<>();
-        int minHd = Integer.MAX_VALUE, maxHd = Integer.MIN_VALUE;
+        HashMap<Integer, List<Integer>> hm = new HashMap<>();
+        int minHD = Integer.MAX_VALUE, maxHD = Integer.MIN_VALUE;
 
         while (!q.isEmpty()) {
             Node curr = q.poll();
-            map.putIfAbsent(curr.hd, new ArrayList<>());
-            map.get(curr.hd).add(curr.node.val);
-            minHd = Math.min(minHd, curr.hd);
-            maxHd = Math.max(maxHd, curr.hd);
+            hm.putIfAbsent(curr.hd, new ArrayList<>());
+            hm.get(curr.hd).add(curr.node.val);
+            minHD = Math.min(minHD, curr.hd);
+            maxHD = Math.max(maxHD, curr.hd);
 
             if (curr.node.left != null) q.offer(new Node(curr.node.left, curr.hd - 1));
             if (curr.node.right != null) q.offer(new Node(curr.node.right, curr.hd + 1));
         }
 
-        for (int i = minHd; i <= maxHd; i++) {
-            res.add(map.get(i));
+        for (int i = minHD; i <= maxHD; i++) {
+            res.add(hm.get(i));
         }
-        
+
         return res;
     }
 }
