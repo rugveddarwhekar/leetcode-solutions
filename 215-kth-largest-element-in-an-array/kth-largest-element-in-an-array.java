@@ -7,6 +7,6 @@ class Solution {
                 minHeap.remove();
             }
         }
-        return minHeap.remove();
+        return minHeap.peek();
     }
 }
