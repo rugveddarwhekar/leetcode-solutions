@@ -14,10 +14,11 @@ class Solution {
                 --n2;
             }
             sum += carry;
-            sb.insert(0, String.valueOf(sum%10));
+            sb.append(String.valueOf(sum%10));
             carry = sum / 10;
         }
-        if (carry > 0) sb.insert(0, carry);
-        return sb.toString();
+        if (carry > 0) sb.append(carry);
+
+        return sb.reverse().toString();
     }
 }
