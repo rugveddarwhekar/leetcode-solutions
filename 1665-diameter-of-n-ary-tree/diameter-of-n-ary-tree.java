@@ -45,6 +45,6 @@ class Solution {
         }
         maxDiameter = Math.max(maxDiameter, max1 + max2);
 
-        return Math.max(max1, max2) + 1;
+        return max1 + 1;
     }
 }
